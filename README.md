@@ -7,10 +7,12 @@ You could find the prebuilt toolchains in [releases](https://github.com/crosstya
 
 Architectures I have built for:
 
-- `x86_64-linux-gnu`
-- `i686-w64-mingw32`
-- `aarch64-linux-gnu`
-- `apple-aarch64-darwin`
+- [`x86_64-linux-gnu`](https://github.com/crosstyan/Xuantie-800-gcc-elf-newlib-prebuilt/releases/tag/v0.1.1)
+- [`i686-w64-mingw32`](https://github.com/crosstyan/Xuantie-800-gcc-elf-newlib-prebuilt/releases/tag/v0.1.1)
+- [`aarch64-linux-gnu`](https://github.com/crosstyan/Xuantie-800-gcc-elf-newlib-prebuilt/releases/tag/v0.1)
+- [`apple-aarch64-darwin`](https://github.com/crosstyan/Xuantie-800-gcc-elf-newlib-prebuilt/releases/tag/v0.1)
+
+You can find some useful info in [backup](https://github.com/crosstyan/Xuantie-800-gcc-elf-newlib-prebuilt/releases/tag/v0.00)
 
 ## How to build
 
@@ -92,3 +94,7 @@ and add the flags for each build step, just like my [build.sh](build.sh)
 
 > [!NOTE]
 > the exact version and path should be found on your system with [`pkg-config`](https://en.wikipedia.org/wiki/Pkg-config) or `brew info`.
+
+## TODO
+
+- [ ] CI
