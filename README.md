@@ -22,11 +22,20 @@ If you want to build the toolchains by yourself, here are some tips.
 
 Pretty straightforward. Just follow [c-sky/toolchain-build](https://github.com/c-sky/toolchain-build) make sure you have enough disk space (at least 80GB) and RAM (at least 8GB).
 
+#### Dependencies
+
+```bash
+sudo apt-get install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
+```
+
+```bash
+sudo pacman -S autoconf automake curl python3 libmpc mpfr gmp gawk base-devel bison flex texinfo gperf libtool patchutils bc zlib expat
+```
+
 ```bash
 git clone https://github.com/c-sky/toolchain-build --recursive --depth=1
 # if you miss the --recursive flag
 # git submodule update --init
-sudo apt-get install autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
 # I would say you should use jobs=$(nproc)-2 if you don't want your computer to freeze
 # especially when you are using a desktop environment
 ./build-csky-gcc.py csky-gcc --src ./ --triple csky-unknown-elf --jobs=-1
@@ -35,7 +44,7 @@ sudo apt-get install autoconf automake autotools-dev curl python3 libmpc-dev lib
 When the build is done, you could find the toolchains in
 `build-gcc-csky-unknown-elf/Xuantie-800-gcc-elf-newlib-x86_64`. The build script
 just assumed you are using `x86_64` and don't even bother to check your actual
-architecture. <small>It's just a name anyway.</small>
+architecture. <sup><sub>It's just a name anyway.</sub></sup>
 
 ### MinGW
 
@@ -75,6 +84,7 @@ brew unlink binutils
 
 # Building GCC requires GMP 4.2+, MPFR 3.1.0+ and MPC 0.8.0+
 brew install gmp mpfr libmpc
+# brew install autoconf automake curl libmpc mpfr gmp gawk bison flex texinfo gperf libtool patchutils bc zlib expat
 ```
 
 You would have to do some modifications to the build script, luckily it has `--fake` flag.
