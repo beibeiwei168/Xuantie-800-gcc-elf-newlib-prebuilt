@@ -5,6 +5,13 @@ However, I could not find any prebuilt for `aarch64-linux-gnu` (Arm64 Linux) and
 
 You could find the prebuilt toolchains in [releases](https://github.com/crosstyan/Xuantie-800-gcc-elf-newlib-prebuilt/releases/tag/v0.1).
 
+Architectures I have built for:
+
+- `x86_64-linux-gnu`
+- `i686-w64-mingw32`
+- `aarch64-linux-gnu`
+- `apple-aarch64-darwin`
+
 ## How to build
 
 If you want to build the toolchains by yourself, here are some tips.
@@ -23,11 +30,14 @@ sudo apt-get install autoconf automake autotools-dev curl python3 libmpc-dev lib
 ./build-csky-gcc.py csky-gcc --src ./ --triple csky-unknown-elf --jobs=-1
 ```
 
-When the build is done, you could find the toolchains in `build-gcc-csky-unknown-elf/Xuantie-800-gcc-elf-newlib-x86_64`. The build script just assumed you are using `x86_64` and don't even bother to check your actual architecture. It's just a name anyway.
+When the build is done, you could find the toolchains in
+`build-gcc-csky-unknown-elf/Xuantie-800-gcc-elf-newlib-x86_64`. The build script
+just assumed you are using `x86_64` and don't even bother to check your actual
+architecture. <small>It's just a name anyway.</small>
 
 ### MinGW
 
-I were using [ArchLinux](https://archlinux.org) to cross compile this. Follow the steps like [Windows: Cross-compilation using Linux](https://www.wireshark.org/docs/wsdg_html_chunked/ChSetupCross.html).
+I were using [ArchLinux](https://archlinux.org) to cross compile this. Follow the steps like [Windows: Cross-compilation using Linux](https://www.wireshark.org/docs/wsdg_html_chunked/ChSetupCross.html). For other architectures, refer to [MinGW-w64](https://www.mingw-w64.org/downloads/)
 
 ```bash
 pacman -S mingw-w64
@@ -37,10 +47,15 @@ paru -S mingw-w64-libmpc mingw-w64-mpfr mingw-w64-gmp
 
 You'll find `/usr/i686-w64-mingw32` and the cross compiler should be able pick up the dependencies from it.
 
+> [!IMPORTANT]
+> You should already install the `csky` toolchain in your host (in this case `x86_64`) before building the `mingw` toolchain and add the `bin` directory to your `PATH`. Somehow the building process requires the `csky` toolchain to be installed in the host.
+
 ```
 cd toolchain-build
 ./build-csky-gcc.py csky-gcc --src ./ --triple csky-unknown-elf --jobs -1 --host mingw
 ```
+
+I'm not quite sure why the result is 32bit, but it works. (try to figure out how to build a 64bit UCRT version)
 
 ### macOS
 
@@ -69,12 +84,11 @@ You would have to do some modifications to the build script, luckily it has `--f
 
 and add the flags for each build step, just like my [build.sh](build.sh)
 
-````
+```bash
 --with-gmp=/opt/homebrew/Cellar/gmp/6.2.1_1 \
 --with-mpfr=/opt/homebrew/Cellar/mpfr/4.1.0-p13 \
 --with-mpc=/opt/homebrew/Cellar/libmpc/1.3.1
 ```
 
-Note the exact version and path should be found on your system with [`pkg-config`](https://en.wikipedia.org/wiki/Pkg-config) or `brew info`.
-
-Shit might happens
+> [!NOTE]
+> the exact version and path should be found on your system with [`pkg-config`](https://en.wikipedia.org/wiki/Pkg-config) or `brew info`.
